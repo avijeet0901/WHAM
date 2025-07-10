@@ -1,0 +1,4 @@
+The following part will be added in future
+1. multiple CV unbiasing. Starting from 2 CV, the aim is to write code for N numbers of CV. 
+2. Bootstraping for error analysis. At present, user can make chunks of the input data and rerun code multiple times to get the error in estimation.
+3. Identification of folding temperature.
