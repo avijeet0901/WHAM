@@ -1,7 +1,17 @@
 # WHAM
-This code applies Weighted Histogram Analysis Method (WHAM) in temperature and one CV space. The biased potential for the simulation is harmonic, the one used in the umbrella sampling simulations, which requires two inputs - the location of the harmonic potential and the spring constant.
+This code applies the Weighted Histogram Analysis Method (WHAM) in both temperature and one collective variable (CV) space. The biased potential used in the simulation is harmonic, as in umbrella sampling, and requires two inputs: the center of the harmonic potential and the spring constant.
 
-The code requires the following python package- numpy, pandas, matplotlib, argparse, concurrent, and multiprocessing. The help options can be printed out with -h option.
+# Package requirement
+```
+pip3 install numpy
+pip3 install pandas
+pip3 install matplotlib
+pip3 install argparse
+pip3 install concurrent
+pip3 install multiprocessing
+```
+# Usage
+The help options can be printed out with -h option.
 
 The wham_input file should have the following format, including all the COLVAR files:
 /location/to/file/COLVAR biased_value spring_constant temperature
@@ -29,13 +39,27 @@ The tol argument is to change the level of accuracy for the WHAM convergence.
 
 the ite argument helps in changing the number of iteration allowed in the WHAM convergence. 
 
------------
-Feel free to write to me (avijeetkulshrestha@gmail.com) if you find any bug or need help in execution of the code. 
+--------
+Feel free to contact me at avijeetkulshrestha@gmail.com if you find any bugs or need help running the code
+
+# Citations
 Please cite the following paper if you are using the code or any segment of code:
-Kulshrestha A., Punnathanam S. N., Ayappa K. G., "Finite temperature string method with umbrella sampling using path collective variables: application to secondary structure change in a protein," Soft Matter, 18, 7593-7603, 2022. 
 
-Best Regards.
+```
+@article{kulshrestha2022finite,
+  title={Finite temperature string method with umbrella sampling using path collective variables: application to secondary structure change in a protein},
+  author={Kulshrestha, Avijeet and Punnathanam, Sudeep N and Ayappa, K Ganapathy},
+  journal={Soft Matter},
+  volume={18},
+  number={39},
+  pages={7593--7603},
+  year={2022},
+  publisher={Royal Society of Chemistry}
+}
+```
 
+Best Regards.  
+Avijeet Kulshrestha
 
 
 
