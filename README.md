@@ -16,8 +16,9 @@ The help options can be printed out with the -h option.
 The wham_input file should have the following format, including all the COLVAR files:
 /location/to/file/COLVAR biased_value spring_constant temperature
 ...
+A wham input file demo file is included in the repository. 
 
-where the file COLVAR should have at least three columns, including the time step, CV value, and the potential energy of the system. The potential energy should not contain the biased energy contribution.
+where the file COLVAR should have at least three columns, including the time step, CV value, and the potential energy of the system. The potential energy should not contain the biased energy contribution. A COLVAR demo file is included in the repository. 
 
 CV argument requires two inputs - the minimum and the maximum range of the biased CV. NOTE: The code is not customized to handle the periodic CV and will be added in the future. 
 
