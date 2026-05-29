@@ -4,29 +4,41 @@ This code applies the Weighted Histogram Analysis Method (WHAM) in both temperat
 # Package requirement
 ```
 pip3 install numpy
-pip3 install os
+pip3 install pandas
+pip3 install matplotlib
 pip3 install argparse
-pip3 install pymbar
+pip3 install concurrent
+pip3 install multiprocessing
 ```
 # Usage
-The help options can be printed out with the -h option. and the code can be executed by providing all the necessary input:
-python mbar_weights.py -f input_file.dat -target_temp 272.0 -stride 10 -N_CV 2
+The help options can be printed out with the -h option.
 
-The input_file file should have the following format, including all the COLVAR files:
-/location/to/file/COLVAR CV1 CV2 ... K1 K2 ... temperature
+The wham_input file should have the following format, including all the COLVAR files:
+/location/to/file/COLVAR biased_value spring_constant temperature
 ...
-Two input demo files for 2- and 4-CV are included in the repository. 
+A wham input file demo file is included in the repository. 
 
-where the file COLVAR should have the following columns in sequence: time step, CV1, CV2, ..., the potential energy of the system. The potential energy should not contain the biased energy contribution. 
+Here the file COLVAR should have at least three columns, including the time step, CV value, and the potential energy of the system. The potential energy should not contain the biased energy contribution. A COLVAR demo file is included in the repository. 
 
-The target_temp argument specifies the temperature at which the weights are computed. NOTE: This temperature should not be too far from the sampled temperature range for better weight estimates. 
+CV argument requires two inputs - the minimum and the maximum range of the biased CV. NOTE: The code is not customized to handle the periodic CV and will be added in the future. 
 
-The stride argument specifies the interval at which to read data points from the COLVAR files. 
+bins argument defines the number of bins for the CV. NOTE: The number of bins for the temperature space is 100 by default, and the minimum and maximum range of the energy value is computed from the input files. 
 
-The N_CV argument is used to define the number of biased CV in the simulations. 
+The temp argument defines the temperature for the simulations. If the temperature is also defined in the wham_input file, the code uses the wham_input file temperature for each simulation.
 
--------
-The error in the free-energy estimate, or in estimates of other properties, can be evaluated in two ways: (i) by recomputing the weights for each bootstrap sample, or (ii) by performing bootstrap analysis on the sampled data while reusing the weights computed from the complete dataset, thereby reducing the computational cost. 
+k argument defines the spring constant for the simulations. Again, if it is also defined in the wham_input file, the code uses the wham_input file value for each simulation.
+
+NOTE: It is suggested to define the temperature and spring constant in the wham_input file. 
+
+The reweight argument switches on the reweighting in the temperature space along with the CV space. If the user has performed the simulations at different temperatures and wants to reweight the probability (free energy) at a given target temperature, this segment switches on the reweighting at a target temperature. 
+
+If reweight input is provided as "yes", the user must provide the target_temp argument. If left undefined, the code will identify and report the folding temperature. However, this part of the code is not complete. Hence, the user must provide the target_tempetaure. 
+
+The kb argument is to change the units from kJ to kcal. It is suggested to work with kJ units. 
+
+The tol argument is to change the level of accuracy for the WHAM convergence. 
+
+The iteration argument helps in changing the number of iterations allowed in the WHAM convergence. 
 
 --------
 Feel free to contact me at avijeetkulshrestha@gmail.com if you find any bugs or need help running the code
@@ -47,7 +59,12 @@ Please cite the following paper if you are using the code or any segment of code
 }
 ```
 # Future updates 
-A fast a better approach to compute the error will be inplemented in the future. 
+The following part will be added in the future
+1. Multiple CV unbiasing: Starting from 2 CV, the aim is to write code for N numbers of CV. 
+2. Bootstraping for error analysis: At present, users can make chunks of the input data and rerun the code multiple times to identify the error in estimation.
+3. Identification of folding temperature: At present, users need to rerun the code at multiple temperatures until they find an equal weightage to folded and unfolded states.
+
+NOTE: A better reweighting technique (MBAR) is available in my profile. Please check that, as that is more advanced and available for the multidimensional CVs and temperature space. 
 
 Best Regards.  
 Avijeet Kulshrestha
